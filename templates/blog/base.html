@@ -1,0 +1,65 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+    <script type="application/javascript" src="{% static 'jquery.min.js' %}" ></script>
+    <script type="application/javascript" src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}" ></script>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/" style="color: deepskyblue; font-weight: bold">个人博客<small>(Beta)</small></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+        <li class="{% block nav_home_active %}{% endblock %}"><a href="/">首页<span class="sr-only">(current)</span></a></li>
+        <li class="{% block nav_blog_active %}{% endblock %}"><a href="{% url 'blog_list' %}">博客</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'user_info' %}">个人资料</a></li>
+              {% if user.is_superuser %}
+            <li><a href="{% url 'admin:index' %}">后台管理</a></li>
+              {% endif %}
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'logout' %}">退出</a></li>
+          </ul>
+        </li>
+        {% else %}
+          <li class="{% block nav_login_active %}{% endblock %}"><a href="{% url 'login' %}">登录</a></li>
+          <li><a href="{% url 'register' %}">注册</a></li>
+        {% endif %}
+        </ul>
+    </div>
+  </div>
+</nav>
+{% block content %}{% endblock %}
+ <!-- Footer -->
+<footer class="modal-footer">
+  <div class="container">
+    <p class="m-0 text-center text-white">Copyright &copy; Clean Blog 2018</p>
+  </div>
+</footer>
+{% block script %}{% endblock %}
+</body>
+</html>

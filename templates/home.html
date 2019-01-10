@@ -1,0 +1,56 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+{% block title %}
+    我的网站
+{% endblock %}
+{% block nav_home_active %}active{% endblock %}
+{% block content %}
+    <div class="jumbotron" style="background-image: url({% static 'bootstrap-3.3.7-dist/images/jumu1.png' %});background-size:100% 150%">
+        <div class="container">
+        {% if user.is_authenticated %}
+        <h1>Hello<small>{{ user.username }}</small></h1>
+        {% else %}
+        <h1>welcome</h1>
+        {% endif %}
+        <p>人生苦短，我用python</p>
+{#        <p>{{ read_nums }}</p>#}
+          <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+        </div>
+    </div>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h3>今天热门博客</h3>
+            <ul style="list-style-type: none">
+            {% for hot_data in today_hot_data %}
+                <li><a href="{% url 'blog_detail' hot_data.object_id  %}">{{ hot_data.content_object.title }}</a></li>
+            {% empty %}
+            <p>暂无热门博客</p>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h3>昨天热门博客</h3>
+            <ul style="list-style-type: none">
+            {% for hot_data in yesterday_hot_data %}
+                <li><a href="{% url 'blog_detail' hot_data.object_id  %}">{{ hot_data.content_object.title }}</a></li>
+            {% empty %}
+                <p>暂无热门博客</p>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h3>7天热门博客</h3>
+            <ul style="list-style-type: none">
+            {% for hot_data in hot_data_for_7days %}
+                <li><a href="{% url 'blog_detail' hot_data.id  %}">{{ hot_data.title }}</a></li>
+            {% empty %}
+                <p>暂无热门博客</p>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+    </div>
+
+
+{% endblock %}

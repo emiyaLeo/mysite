@@ -1,0 +1,69 @@
+{% extends 'blog/base.html' %}
+{# 页面标题 #}
+{% block title %}
+       {{ blog.title }}
+{% endblock %}
+{% block nav_blog_active %}active{% endblock %}
+{# 页面内容 #}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <nav aria-label="...">
+                  <ul class="pager">
+                      {% if previous_blog %}
+                      <li class="previous"><a href="{% url 'blog_detail' previous_blog.pk %}"><span aria-hidden="true">&larr;</span> 上一篇</a></li>
+                      {% else %}
+                       <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> 没有了</a></li>
+                      {% endif %}
+                      {% if next_blog %}
+                        <li class="next"><a href="{% url 'blog_detail' next_blog.pk %}">下一篇 <span aria-hidden="true">&rarr;</span></a></li>
+                      {% else %}
+                        <li class="next"><a href="#">没有了 <span aria-hidden="true">&rarr;</span></a></li>
+                      {% endif %}
+
+                  </ul>
+            </nav>
+            <div class="col-xs-10 col-md-12">
+                <h3>{{ blog.title }}</h3>
+                <ul class="list-inline">
+                  <li>作者：{{ blog.author }}</li>
+                <li>发布日期：{{ blog.create_time|date:'Y-m-d h:n' }}</li>
+                <li>分类：<a href="{% url 'blogs_with_type' blog.blog_type_id %}">{{ blog.blog_type }}</a></li>
+                <li>阅读:({{ blog.get_read_num }})</li>
+                <li>评论:({{ comments.count }})</li>
+                </ul>
+                <p>{{ blog.content|safe }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-10 ">
+                <div class="comment_area">
+                    <h3>提交评论</h3>
+                    {% if user.is_authenticated %}
+                    <form  id="comment_form" action="{% url 'update_comment' blog.pk %}" method="post">
+                        {% csrf_token %}
+                        {{ comment_form.media }}     {# ckeditor引入 #}
+                        {{ comment_form }}
+                        <input type="submit" value="提交" class="btn btn-primary">
+                    </form>
+                    {% else %}
+                    <p>您尚未登陆，登录后可评论，<a class="btn btn-primary" href="{% url 'login' %}" role="button">登录</a> or <a class="btn btn-primary" href="{% url 'register' %}" role="button">注册</a></p>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-10">
+                <h3>评论列表({{ comments.count }})</h3>
+                {% for comment in comments %}
+                    <p>#{{ forloop.revcounter }}&nbsp;{{ comment.user }}&nbsp;({{ comment.comment_time|date:'Y-m-d h:n' }})说：{{ comment.text|safe }}</p>
+                {% empty %}
+                    暂无评论
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
