@@ -19,11 +19,11 @@
     </div>
     <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 ">
             <h3>今天热门博客</h3>
-            <ul style="list-style-type: none">
+            <ul class="list-group" style="list-style-type: none">
             {% for hot_data in today_hot_data %}
-                <li><a href="{% url 'blog_detail' hot_data.object_id  %}">{{ hot_data.content_object.title }}</a></li>
+                <li class="list-group-item"><a href="{% url 'blog_detail' hot_data.object_id  %}">{{ hot_data.content_object.title }}</a></li>
             {% empty %}
             <p>暂无热门博客</p>
             {% endfor %}
@@ -31,19 +31,19 @@
         </div>
         <div class="col-md-4">
             <h3>昨天热门博客</h3>
-            <ul style="list-style-type: none">
+            <ul class="list-group" style="list-style-type: none">
             {% for hot_data in yesterday_hot_data %}
-                <li><a href="{% url 'blog_detail' hot_data.object_id  %}">{{ hot_data.content_object.title }}</a></li>
+                <li class="list-group-item"><a href="{% url 'blog_detail' hot_data.object_id  %}">{{ hot_data.content_object.title }}</a></li>
             {% empty %}
-                <p>暂无热门博客</p>
+                <li class="list-group-item">暂无热门博客</li>
             {% endfor %}
             </ul>
         </div>
         <div class="col-md-4">
             <h3>7天热门博客</h3>
-            <ul style="list-style-type: none">
+            <ul class="list-group" style="list-style-type: none">
             {% for hot_data in hot_data_for_7days %}
-                <li><a href="{% url 'blog_detail' hot_data.id  %}">{{ hot_data.title }}</a></li>
+                <li class="list-group-item"><a href="{% url 'blog_detail' hot_data.id  %}">{{ hot_data.title }}</a></li>
             {% empty %}
                 <p>暂无热门博客</p>
             {% endfor %}
