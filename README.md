@@ -42,7 +42,9 @@ CREATE DATABASE `mysite` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_
     ./manage.py migrate
 
 ## 创建缓存表
-执行命令：```python manage.py createcachetable``` 创建缓存表。
+执行命令：
+```python manage.py createcachetable``` 
+创建缓存表。
 
 ## 创建超级用户
  终端下执行:
@@ -50,4 +52,5 @@ CREATE DATABASE `mysite` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_
     ./manage.py createsuperuser
     
 ## 启动本地服务
-进入项目根目录，执行命令：```python manage.py runserver```
+进入项目根目录，执行命令：
+```python manage.py runserver```
