@@ -31,7 +31,7 @@
         }
     }
 
-### 创建数据库
+## 创建数据库
 mysql数据库中执行:
 ```sql
 CREATE DATABASE `mysite` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
@@ -41,10 +41,10 @@ CREATE DATABASE `mysite` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_
     ./manage.py makemigrations
     ./manage.py migrate
 
-### 创建缓存表
+## 创建缓存表
 执行命令：```python manage.py createcachetable``` 创建缓存表。
 
-### 创建超级用户
+## 创建超级用户
  终端下执行:
 
     ./manage.py createsuperuser
