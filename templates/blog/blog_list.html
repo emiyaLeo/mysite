@@ -14,9 +14,8 @@
                   <div class="panel-heading">{% block tip %}博客列表{% endblock %}</div>
                   <div class="panel-body">
                      <p>一共有{{ blogs|length }}篇博客</p>
-                  <div class="blog">
+                      <div class="blog">
                       {% for blog in page_of_blogs %}
-                          <i><a href="/"><img src="{% static 'images/1.jpeg' %}" width="100" height="100"></a></i>
                           <a href="{% url 'blog_detail' blog.pk  %}"><h3>{{ blog.title }}</h3></a>
                           <p class="blog-info">
                             <span class="glyphicon glyphicon-tag" aria-hidden="true"></span><a href="{% url 'blogs_with_type' blog.blog_type.pk %}">{{ blog.blog_type }}</a>
@@ -25,12 +24,10 @@
                             <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>({{ blog.comment_set.count }})
                           </p>
                           <p>{{ blog.content|striptags|truncatechars:200}}</p>
-
-
                     {% empty %}
                         <h3>还没有博客</h3>
                     {% endfor %}
-                  </div>
+                      </div>
                   </div>
                 </div>
                 {# 分页 #}
