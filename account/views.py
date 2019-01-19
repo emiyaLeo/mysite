@@ -19,7 +19,7 @@ def user_login(request):
             else:
                 return HttpResponse('用户名或密码错误')
         else:
-            return HttpResponse('用户名或密码错误')
+            return HttpResponse('sorry')
 
     if request.method == 'GET':
         login_form = LoginForm()
