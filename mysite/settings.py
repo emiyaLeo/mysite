@@ -25,7 +25,7 @@ SECRET_KEY = 'l_!ycv(mah4$s=k*@0-s4kzv&o^8s6(&ld@(s5yp30)d!a51sp'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
