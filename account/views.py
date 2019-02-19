@@ -10,14 +10,15 @@ from .forms import LoginForm,RegistrationForm
 def user_login(request):
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
-        if login_form.is_valid():
-            cd = login_form.cleaned_data
-            user = authenticate(username = cd['username'],password = cd['password'])
+        if login_form:
+            username = request.POST.get('username',"")
+            password = request.POST.get('password',"")
+            user = authenticate(username=username,password=password)
             if user:
                 login(request,user)
                 return redirect('/')
             else:
-                return HttpResponse('用户名或密码错误')
+                return render(request,"account/error.html",{'message':"用户名或密码错误"})
         else:
             return HttpResponse('sorry')
 

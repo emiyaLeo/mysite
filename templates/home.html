@@ -5,7 +5,7 @@
 {% endblock %}
 {% block nav_home_active %}active{% endblock %}
 {% block content %}
-    <div class="jumbotron" style="background-image: url({% static 'bootstrap-3.3.7-dist/images/jumu1.png' %});background-size:100% 150%">
+    <div class="jumbotron" style="background-image: url({% static 'bootstrap-3.3.7-dist/images/jumu.jpg' %});background-size:100% 100%">
         <div class="container">
         {% if user.is_authenticated %}
         <h1>Hello<small>{{ user.username }}</small></h1>
