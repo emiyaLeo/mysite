@@ -1,6 +1,6 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,reverse
 from django.http import HttpResponse
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 
 from .forms import LoginForm,RegistrationForm
@@ -47,3 +47,7 @@ def user_reg(request):
 def user_info(request):
     context = {}
     return render(request, 'account/user_info.html', context)
+
+def user_logout(request):
+    logout(request)
+    return render(request,'account/logout.html')
