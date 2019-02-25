@@ -1,4 +1,5 @@
 {% extends 'blog/base.html' %}
+{% load staticfiles %}
 {# 页面标题 #}
 {% block title %}
        {{ blog.title }}
@@ -8,7 +9,27 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <nav aria-label="...">
+            <div class="col-md-9">
+                <h3><b>{{ blog.title }}</b></h3>
+                <ul class="list-inline" style="color: #999999">
+                <li>作者：{{ blog.author }}</li>
+                <li>发布日期：{{ blog.create_time|date:'Y-m-d h:n' }}</li>
+                <li>分类：<a href="{% url 'blogs_with_type' blog.blog_type_id %}">{{ blog.blog_type }}</a></li>
+                <li>阅读:({{ blog.get_read_num }})</li>
+                <li>评论:({{ comments.count }})</li>
+                </ul>
+                <hr>
+                <p>{{ blog.content|safe }}</p>
+            </div>
+            <div class="col-md-3">
+                <h4>推广</h4>
+                <hr>
+                <a href="https://promotion.aliyun.com/ntms/act/enterprise-discount.html?userCode=yxv7b5cl"><img src="{% static 'bootstrap-3.3.7-dist/images/ad1.jpg' %}" class="img-responsive"></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <nav aria-label="...">
                   <ul class="pager">
                       {% if previous_blog %}
                       <li class="previous"><a href="{% url 'blog_detail' previous_blog.pk %}"><span aria-hidden="true">&larr;</span> 上一篇</a></li>
@@ -23,21 +44,10 @@
 
                   </ul>
             </nav>
-            <div class="col-xs-10 col-md-12 blog-post">
-                <h3>{{ blog.title }}</h3>
-                <ul class="list-inline">
-                <li>作者：{{ blog.author }}</li>
-                <li>发布日期：{{ blog.create_time|date:'Y-m-d h:n' }}</li>
-                <li>分类：<a href="{% url 'blogs_with_type' blog.blog_type_id %}">{{ blog.blog_type }}</a></li>
-                <li>阅读:({{ blog.get_read_num }})</li>
-                <li>评论:({{ comments.count }})</li>
-                </ul>
-                <hr>
-                <p>{{ blog.content|safe }}</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-10 ">
+            <div class="col-md-9 ">
                 <div class="comment_area">
                     <h3>提交评论</h3>
                     <hr>
@@ -56,7 +66,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-10">
+            <div class="col-md-9">
                 <h3>评论列表({{ comments.count }})</h3>
                 <hr>
                 {% for comment in comments %}
