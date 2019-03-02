@@ -10,21 +10,29 @@
     <div class="container">
         <div class="row">
             <div class="col-md-9">
-                <h3><b>{{ blog.title }}</b></h3>
-                <ul class="list-inline" style="color: #999999">
-                <li>作者：{{ blog.author }}</li>
-                <li>发布日期：{{ blog.create_time|date:'Y-m-d h:n' }}</li>
-                <li>分类：<a href="{% url 'blogs_with_type' blog.blog_type_id %}">{{ blog.blog_type }}</a></li>
-                <li>阅读:{{ blog.get_read_num }}</li>
-                <li>评论:{{ comments.count }}</li>
-                </ul>
-                <hr>
-                <p>{{ blog.content|safe }}</p>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                       <h3><b>{{ blog.title }}</b></h3>
+                        <ul class="list-inline" style="color: #999999">
+                        <li>作者：{{ blog.author }}</li>
+                        <li>发布日期：{{ blog.create_time|date:'Y-m-d h:n' }}</li>
+                        <li>分类：<a href="{% url 'blogs_with_type' blog.blog_type_id %}">{{ blog.blog_type }}</a></li>
+                        <li>阅读:{{ blog.get_read_num }}</li>
+                        <li>评论:{{ comments.count }}</li>
+                        </ul>
+                        <hr>
+                        <p>{{ blog.content|safe }}</p>
+                    </div>
+                </div>
             </div>
             <div class="col-md-3">
-                <h4>推广</h4>
-                <hr>
-                <a href="https://promotion.aliyun.com/ntms/act/enterprise-discount.html?userCode=yxv7b5cl"><img src="{% static 'bootstrap-3.3.7-dist/images/ad1.jpg' %}" class="img-responsive"></a>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                    <h4>推广</h4>
+                    <hr>
+                    <a href="https://promotion.aliyun.com/ntms/act/enterprise-discount.html?userCode=yxv7b5cl"><img src="{% static 'bootstrap-3.3.7-dist/images/ad1.jpg' %}" class="img-responsive"></a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -41,42 +49,40 @@
                       {% else %}
                         <li class="next"><a href="#">没有了 <span aria-hidden="true">&rarr;</span></a></li>
                       {% endif %}
-
                   </ul>
             </nav>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-9 ">
-                <div class="comment_area">
-                    <h3>提交评论</h3>
+            <div class="col-md-9">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                    <p class="lead">评论列表({{ comments.count }})</p>
+                    <hr>
+                    {% for comment in comments %}
+                        <p style="color: #999999">#{{ forloop.revcounter }}&nbsp;{{ comment.user }}发布于：{{ comment.comment_time|date:'Y-m-d h:n' }}</p>
+                        <p><small>{{ comment.text|safe }}</small></p>
+                    {% empty %}
+                        暂无评论
+                    {% endfor %}
+                    <br>
+                    <p class="lead">提交评论</p>
                     <hr>
                     {% if user.is_authenticated %}
-                    <form  id="comment_form" action="{% url 'update_comment' blog.pk %}" method="post">
-                        {% csrf_token %}
-                        {{ comment_form.media }}     {# ckeditor引入 #}
-                        {{ comment_form }}
-                        <input type="submit" value="提交" class="btn btn-primary">
+                    <form action="{% url 'update_comment' blog.pk %}" method="post">
+                        <div class="form-group">
+                            {% csrf_token %}
+                        {{ comment_form.text }}
+                        </div>
+                        <input type="submit" value="提交" class="btn btn-info">
                     </form>
                     {% else %}
                     <p>您尚未登陆，登录后可评论，<a class="btn btn-primary" href="{% url 'login' %}" role="button">登录</a> or <a class="btn btn-primary" href="{% url 'register' %}" role="button">注册</a></p>
                     {% endif %}
-
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-9">
-                <h3>评论列表({{ comments.count }})</h3>
-                <hr>
-                {% for comment in comments %}
-                    <div class="panel"><p>#{{ forloop.revcounter }}&nbsp;{{ comment.user }}&nbsp;({{ comment.comment_time|date:'Y-m-d h:n' }})说：{{ comment.text|safe }}</p></div>
-                {% empty %}
-                    暂无评论
-                {% endfor %}
-            </div>
-        </div>
-
     </div>
 
 {% endblock %}

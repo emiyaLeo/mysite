@@ -1,13 +1,11 @@
-from django.shortcuts import render,get_object_or_404,redirect
-from .models import Blog,BlogType
+from django.shortcuts import render, get_object_or_404
+from .models import Blog, BlogType
 from django.core.paginator import Paginator
 from django.db.models import Count
-from django.contrib.contenttypes.models import ContentType
-from read_statistics.models import ReadNum
 from read_statistics.views import read_statistics_once_read
 from comment.models import Comment
 from comment.forms import CommentForm
-from django.urls import reverse
+
 
 # Create your views here.
 def blog_list(request):
@@ -28,24 +26,6 @@ def blog_detail(request,blog_pk):
     blog = get_object_or_404(Blog,pk=blog_pk)
     read_cookie_key = read_statistics_once_read(request,blog)
     comments = Comment.objects.filter(to_blog=blog)
-    # if not request.COOKIES.get('blog_%s_read'% blog_pk): #判断cookie，总阅读数加1
-    #     ct = ContentType.objects.get_for_model(Blog)
-    #     readnum,created = ReadNum.objects.get_or_create(content_type=ct,object_id=blog.pk)
-    #     readnum.read_num += 1
-    #     readnum.save()
-
-    # if request.method =='POST':
-    #     comment_form = CommentForm(request.POST)
-    #     if comment_form.is_valid():
-    #         new_comment = comment_form.save(commit=False)
-    #         new_comment.user = request.user
-    #         new_comment.to_blog = blog
-    #         new_comment.save()
-    #         return redirect(reverse('blog_detail',args=(blog_pk,)))
-    # else:
-    #     comment_form = CommentForm()
-
-
 
     context = {}
     context['blog'] = get_object_or_404(Blog,pk=blog_pk)
