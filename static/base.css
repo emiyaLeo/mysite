@@ -17,7 +17,14 @@ p img{
     max-width: 100%;
     display: block;
 }
-body { padding-top: 70px; }
+body {
+    padding-top: 70px;
+    background-image:url(bootstrap-3.3.7-dist/images/bg.png);
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-position:0px 0px;
+    background-size:cover;
+}
 
 
 /*以下样式copy自bootstrap模板*/
@@ -79,4 +86,3 @@ body { padding-top: 70px; }
 .blog-footer p:last-child {
   margin-bottom: 0;
 }
-
