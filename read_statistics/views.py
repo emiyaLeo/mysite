@@ -30,18 +30,6 @@ def read_statistics_once_read(request, obj):
         readdetail.save()
     return key
 
-
-def get_seven_days_read(content_type):
-    today = timezone.now().date()
-    read_nums = []
-    for i in range(7,-1,-1):
-        date = today - datetime.timedelta(days=i)
-        read_details = ReadDetail.objects.filter(content_type=content_type,date=date)
-        result = read_details.aggregate(read_num_sum=Sum('read_num'))
-        read_nums.append(result['read_num_sum'] or 0)
-    return read_nums
-
-
 def get_today_hot_data(content_type):
     today = timezone.now().date()
     read_details = ReadDetail.objects.filter(content_type=content_type,date=today).order_by('-read_num')

@@ -78,11 +78,14 @@ body {
 
 .blog-footer {
   padding: 40px 0;
-  color: #999;
+  color: #e8e8e8;
   text-align: center;
-  background-color: #f9f9f9;
+  background-color: #333333;
   border-top: 1px solid #e5e5e5;
 }
 .blog-footer p:last-child {
   margin-bottom: 0;
 }
+
+/*去除a标签蓝色*/
+/*a:link,a:visited{color:#444;text-decoration:none;}*/
