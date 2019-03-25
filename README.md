@@ -34,7 +34,7 @@
 ## 创建数据库
 mysql数据库中执行:
 ```sql
-CREATE DATABASE `mysite` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
+CREATE DATABASE mysite CHARACTER SET utf8mb4;
 ```
  然后终端下执行:
 
